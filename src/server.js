@@ -9,13 +9,8 @@ http.listen(port, () => {
 
 var users = [];
 
-// io.configure(function() {
-//   io.set('transports', ['xhr-polling']);
-//   io.set('polling duration', 10);
-// });
-
 io.on('connection', socket => {
-  console.log('user connected');
+  console.log(`client connected and sessionId: ${socket.id}`);
   socket.on('info', data => {
     console.log(`info ${JSON.stringify(data)}`);
     socket.userInfo = data;
@@ -35,14 +30,14 @@ io.on('connection', socket => {
       // io.to(getSocketId(data.number)).emit('join', { join: true });
       io.sockets.sockets[getSocketId(data.number)].emit('join', { join: true });
     } else if (clients === 1) {
-      io.in(data.room).emit('join', data.room);
+      //io.in(data.room).emit('join', data.room);
       socket.join(data.room);
       io.in(data.room).emit('status', { ready: true });
     }
   });
 
   socket.on('msg', data => {
-    socket.to('call').emit('signal', data);
+    socket.to('call').emit('signal', { data: data, from: socket.id });
   });
 
   socket.on('disconnect', () => {
@@ -56,7 +51,7 @@ io.on('connection', socket => {
 });
 
 function getSocketId(number) {
-  let user = users.find(x => x.p === number || parseInt(x.p) === number);
+  let user = users.find(x => x.p == number);
 
   if (user) {
     console.log(user);
