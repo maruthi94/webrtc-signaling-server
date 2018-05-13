@@ -1,6 +1,6 @@
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http, { origins: 'localhost:4200 ystream-41622.firebaseapp.com:*' });
+const io = require('socket.io')(http, { origins: 'localhost:* ystream-41622.firebaseapp.com:*' });
 
 let port = process.env.PORT || 5000;
 http.listen(port, () => {
