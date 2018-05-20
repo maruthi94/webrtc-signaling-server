@@ -53,11 +53,7 @@ io.on('connection', socket => {
       console.log(io.sockets.clients('call'));
     io.of('/').in('call').clients(function(error,clients) {
         
-        if(clients){
-          clients.foreach(s => {
-            s.leave('call');
-          });
-        }
+       console.log(clients);
       });
       console.log('Room -- CALL in closed');
     }
