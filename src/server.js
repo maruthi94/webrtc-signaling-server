@@ -51,7 +51,7 @@ io.on('connection', socket => {
 
     if (data.CLOSED) {
       console.log(io.sockets.clients('call'));
-    io.of('/').in(room).clients(function(error,clients) {
+    io.of('/').in('call').clients(function(error,clients) {
         
         if(clients){
           clients.foreach(s => {
