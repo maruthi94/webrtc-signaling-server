@@ -52,7 +52,10 @@ io.on('connection', socket => {
     if (data.CLOSED) {
     io.of('/').in('call').clients((error, clients) => {
   if (error) throw error;
-  console.log(clients); 
+  console.log(clients);
+      for (var id in clients) {
+            io.sockets.sockets[id].leave('call');
+          }
 });
       console.log('Room -- CALL in closed');
     }
