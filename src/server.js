@@ -45,19 +45,16 @@ io.on('connection', socket => {
       io.in(data.room).emit('status', { ready: true });
     }
   });
-
+  
+  socket.on('leave', data => {
+    socket.leave(data.room);
+  });
+  
   socket.on('msg', data => {
     socket.to('call').emit('signal', { data: data, from: socket.id });
 
     if (data.CLOSED) {
-    io.of('/').in('call').clients((error, clients) => {
-  if (error) throw error;
-  console.log(clients);
-      for (var id in clients) {
-           
-        console.log(io.sockets);
-          }
-});
+    socket.leave(data.room);
       console.log('Room -- CALL in closed');
     }
   });
