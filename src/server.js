@@ -54,7 +54,8 @@ io.on('connection', socket => {
   if (error) throw error;
   console.log(clients);
       for (var id in clients) {
-            io.sockets;
+           
+        console.log(io.sockets);
           }
 });
       console.log('Room -- CALL in closed');
