@@ -50,11 +50,10 @@ io.on('connection', socket => {
     socket.to('call').emit('signal', { data: data, from: socket.id });
 
     if (data.CLOSED) {
-      console.log(io.sockets.clients('call'));
-    io.of('/').in('call').clients(function(error,clients) {
-        
-       console.log(clients);
-      });
+    io.of('/').in('call').clients((error, clients) => {
+  if (error) throw error;
+  console.log(clients); 
+});
       console.log('Room -- CALL in closed');
     }
   });
